@@ -3,78 +3,91 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Github } from 'lucide-react';
 
 const Contact = ({ isOpen, onClose }) => {
-    const [email, setEmail] = useState('');
-    const [message, setMessage] = useState('');
+  const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('');
 
-    const handleDone = () => {
-        const subject = encodeURIComponent("Portfolio Contact");
-        const body = encodeURIComponent(message);
-        window.location.href = `mailto:nilashree018@gmail.com?subject=${subject}&body=${body}`;
-        onClose();
-    };
+  const handleDone = () => {
+    const subject = encodeURIComponent("Portfolio Contact");
+    const body = encodeURIComponent(message);
+    window.location.href = `mailto:nilashree018@gmail.com?subject=${subject}&body=${body}`;
+    onClose();
+  };
 
-    return (
-        <AnimatePresence>
-            {isOpen && (
-                <div className="modal-overlay">
-                    <motion.div
-                        initial={{ scale: 0.8, opacity: 0 }}
-                        animate={{ scale: 1, opacity: 1 }}
-                        exit={{ scale: 0.8, opacity: 0 }}
-                        className="contact-modal"
-                    >
-                        <div className="modal-header">
-                            <h2>CONTACT ME</h2>
-                        </div>
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <div className="modal-overlay">
+          <motion.div
+            initial={{ scale: 0.8, opacity: 0, y: 0 }}
+            animate={{
+              scale: 1,
+              opacity: 1,
+              y: [0, -15, 0]
+            }}
+            transition={{
+              scale: { duration: 0.3 },
+              opacity: { duration: 0.3 },
+              y: {
+                duration: 3,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }
+            }}
+            exit={{ scale: 0.8, opacity: 0 }}
+            className="contact-modal"
+          >
+            <div className="modal-header">
+              <h2>CONTACT ME</h2>
+            </div>
 
-                        <div className="modal-body">
-                            <div className="input-group">
-                                <div className="label-box">From</div>
-                                <input
-                                    type="email"
-                                    placeholder="Enter your email"
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                    className="modal-input"
-                                />
-                            </div>
+            <div className="modal-body">
+              <div className="input-group">
+                <div className="label-box">From</div>
+                <input
+                  type="email"
+                  placeholder="Enter your email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="modal-input"
+                />
+              </div>
 
-                            <div className="input-group">
-                                <div className="label-box">To</div>
-                                <input
-                                    type="text"
-                                    value="nilashree018@gmail.com"
-                                    readOnly
-                                    className="modal-input readonly"
-                                />
-                            </div>
+              <div className="input-group">
+                <div className="label-box">To</div>
+                <input
+                  type="text"
+                  value="nilashree018@gmail.com"
+                  readOnly
+                  className="modal-input readonly"
+                />
+              </div>
 
-                            <div className="input-group full-width">
-                                <textarea
-                                    placeholder="Message"
-                                    value={message}
-                                    onChange={(e) => setMessage(e.target.value)}
-                                    className="modal-textarea"
-                                />
-                            </div>
+              <div className="input-group full-width">
+                <textarea
+                  placeholder="Message"
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                  className="modal-textarea"
+                />
+              </div>
 
-                            <button className="done-btn" onClick={handleDone}>
-                                DONE
-                            </button>
+              <button className="done-btn" onClick={handleDone}>
+                DONE
+              </button>
 
-                            <a
-                                href="https://github.com/shreeboopathi"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="github-link"
-                            >
-                                <Github size={24} />
-                                <span>GitHub</span>
-                            </a>
-                        </div>
-                    </motion.div>
+              <a
+                href="https://github.com/shreeboopathi"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="github-link"
+              >
+                <Github size={24} />
+                <span>GitHub</span>
+              </a>
+            </div>
+          </motion.div>
 
-                    <style jsx>{`
+          <style jsx>{`
             .modal-overlay {
               position: fixed;
               top: 0;
@@ -206,10 +219,10 @@ const Contact = ({ isOpen, onClose }) => {
               opacity: 0.7;
             }
           `}</style>
-                </div>
-            )}
-        </AnimatePresence>
-    );
+        </div>
+      )}
+    </AnimatePresence>
+  );
 };
 
 export default Contact;
