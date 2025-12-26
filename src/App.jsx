@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Hero from './components/Hero';
 import About from './components/About';
 import Skills from './components/Skills';
+import Contact from './components/Contact';
 import Navbar from './components/Navbar';
 
 function App() {
+  const [isContactOpen, setIsContactOpen] = useState(false);
+
   return (
     <div className="app">
       <main>
@@ -12,7 +15,6 @@ function App() {
           <Hero />
         </div>
 
-        {/* Placeholder sections for navigation */}
         <About />
 
         <Skills />
@@ -31,11 +33,17 @@ function App() {
         <section id="contact" style={{ minHeight: '100vh', padding: '100px 20px', textAlign: 'center', background: 'var(--bg-dark)' }}>
           <h2 className="blink-hover" style={{ fontSize: '3rem', marginBottom: '2rem' }}>Contact Me</h2>
           <p style={{ color: 'var(--text-gray)', marginBottom: '2rem' }}>Let's work together on your next project!</p>
-          <button className="btn-primary" style={{ background: 'var(--accent-color)', color: '#000', border: 'none', padding: '1rem 2.5rem', borderRadius: '50px', fontWeight: '700' }}>
+          <button
+            onClick={() => setIsContactOpen(true)}
+            className="btn-primary"
+            style={{ background: 'var(--accent-color)', color: '#000', border: 'none', padding: '1rem 2.5rem', borderRadius: '50px', fontWeight: '700' }}
+          >
             Send Message
           </button>
         </section>
       </main>
+
+      <Contact isOpen={isContactOpen} onClose={() => setIsContactOpen(false)} />
 
       <Navbar />
 
