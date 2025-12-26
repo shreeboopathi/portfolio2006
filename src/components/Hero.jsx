@@ -4,6 +4,9 @@ import { Palette, Layers, Figma, Code, Cpu, PenTool } from 'lucide-react';
 import profileImg from '../assets/shree_profile.jpg';
 
 const Hero = () => {
+  const [isGreetingDone, setIsGreetingDone] = React.useState(false);
+  const [isNameDone, setIsNameDone] = React.useState(false);
+
   const orbitIcons = [
     { icon: <Palette size={24} />, color: '#ff4d4d', label: 'Design' },
     { icon: <Layers size={24} />, color: '#4d94ff', label: 'Layers' },
@@ -23,19 +26,21 @@ const Hero = () => {
           className="hero-text"
         >
           <motion.h3
-            className="greeting blink-hover"
+            className={`greeting blink-hover ${!isGreetingDone ? 'typing-cursor' : ''}`}
             initial={{ width: 0 }}
             animate={{ width: "fit-content" }}
+            onAnimationComplete={() => setIsGreetingDone(true)}
             transition={{ duration: 1, ease: "easeInOut" }}
             style={{ overflow: "hidden", whiteSpace: "nowrap" }}
           >
             Hello I'M
           </motion.h3>
           <motion.h1
-            className="name blink-hover"
+            className={`name blink-hover ${isGreetingDone && !isNameDone ? 'typing-cursor' : ''}`}
             initial={{ width: 0 }}
-            animate={{ width: "fit-content" }}
-            transition={{ duration: 1.5, delay: 0.5, ease: "easeInOut" }}
+            animate={isGreetingDone ? { width: "fit-content" } : { width: 0 }}
+            onAnimationComplete={() => setIsNameDone(true)}
+            transition={{ duration: 1.5, ease: "easeInOut" }}
             style={{ overflow: "hidden", whiteSpace: "nowrap" }}
           >
             Shree
@@ -43,8 +48,8 @@ const Hero = () => {
           <motion.h2
             className="title blink-hover"
             initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 1.5 }}
+            animate={isNameDone ? { opacity: 1 } : { opacity: 0 }}
+            transition={{ duration: 1 }}
           >
             A Creative <span className="highlight">Graphic Designer</span>
           </motion.h2>
@@ -134,6 +139,7 @@ const Hero = () => {
           font-size: 1.5rem;
           margin-bottom: 0.5rem;
           font-weight: 500;
+          display: block;
         }
 
         .name {
@@ -142,6 +148,7 @@ const Hero = () => {
           line-height: 1;
           margin-bottom: 1rem;
           letter-spacing: -2px;
+          display: block;
         }
 
         .title {
@@ -152,31 +159,6 @@ const Hero = () => {
 
         .highlight {
           color: var(--accent-color);
-        }
-
-        .hero-buttons {
-          display: flex;
-          gap: 1.5rem;
-        }
-
-        .btn-primary {
-          background: var(--accent-color);
-          color: #000;
-          border: none;
-          padding: 1rem 2.5rem;
-          border-radius: 50px;
-          font-weight: 700;
-          font-size: 1.1rem;
-        }
-
-        .btn-secondary {
-          background: #fff;
-          color: #000;
-          border: none;
-          padding: 1rem 2.5rem;
-          border-radius: 50px;
-          font-weight: 700;
-          font-size: 1.1rem;
         }
 
         .hero-visual {
@@ -259,10 +241,6 @@ const Hero = () => {
             gap: 2rem;
           }
           
-          .hero-buttons {
-            justify-content: center;
-          }
-
           .name {
             font-size: 4rem;
           }

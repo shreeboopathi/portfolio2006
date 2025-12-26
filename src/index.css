@@ -77,6 +77,24 @@ a {
   }
 }
 
+@keyframes cursor-blink {
+
+  from,
+  to {
+    border-color: transparent;
+  }
+
+  50% {
+    border-color: var(--accent-color);
+  }
+}
+
+.typing-cursor {
+  border-right: 4px solid var(--accent-color);
+  animation: cursor-blink 0.7s step-end infinite;
+  padding-right: 4px;
+}
+
 .blink-hover:hover {
   animation: blink 0.5s linear infinite;
   cursor: default;
