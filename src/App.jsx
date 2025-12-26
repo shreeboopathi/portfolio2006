@@ -1,5 +1,6 @@
 import React from 'react';
 import Hero from './components/Hero';
+import About from './components/About';
 import Navbar from './components/Navbar';
 
 function App() {
@@ -11,14 +12,9 @@ function App() {
         </div>
 
         {/* Placeholder sections for navigation */}
-        <section id="about" style={{ minHeight: '100vh', padding: '100px 20px', textAlign: 'center' }}>
-          <h2 className="blink-hover" style={{ fontSize: '3rem', marginBottom: '2rem' }}>About Me</h2>
-          <p style={{ color: 'var(--text-gray)', maxWidth: '800px', margin: '0 auto' }}>
-            I am a passionate graphic designer with a keen eye for detail and a love for creating visually stunning experiences.
-          </p>
-        </section>
+        <About />
 
-        <section id="skills" style={{ minHeight: '100vh', padding: '100px 20px', textAlign: 'center', background: '#141517' }}>
+        <section id="skills" style={{ minHeight: '100vh', padding: '100px 20px', textAlign: 'center', background: 'var(--bg-dark)' }}>
           <h2 className="blink-hover" style={{ fontSize: '3rem', marginBottom: '2rem' }}>Skills</h2>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', justifyContent: 'center' }}>
             {['Photoshop', 'Illustrator', 'Figma', 'React', 'UI/UX', 'Branding'].map(skill => (
@@ -40,7 +36,7 @@ function App() {
           </div>
         </section>
 
-        <section id="contact" style={{ minHeight: '100vh', padding: '100px 20px', textAlign: 'center', background: '#141517' }}>
+        <section id="contact" style={{ minHeight: '100vh', padding: '100px 20px', textAlign: 'center', background: 'var(--bg-dark)' }}>
           <h2 className="blink-hover" style={{ fontSize: '3rem', marginBottom: '2rem' }}>Contact Me</h2>
           <p style={{ color: 'var(--text-gray)', marginBottom: '2rem' }}>Let's work together on your next project!</p>
           <button className="btn-primary" style={{ background: 'var(--accent-color)', color: '#000', border: 'none', padding: '1rem 2.5rem', borderRadius: '50px', fontWeight: '700' }}>
