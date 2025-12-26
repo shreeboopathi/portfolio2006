@@ -1,6 +1,7 @@
 import React from 'react';
 import Hero from './components/Hero';
 import About from './components/About';
+import Skills from './components/Skills';
 import Navbar from './components/Navbar';
 
 function App() {
@@ -14,16 +15,7 @@ function App() {
         {/* Placeholder sections for navigation */}
         <About />
 
-        <section id="skills" style={{ minHeight: '100vh', padding: '100px 20px', textAlign: 'center', background: 'var(--bg-dark)' }}>
-          <h2 className="blink-hover" style={{ fontSize: '3rem', marginBottom: '2rem' }}>Skills</h2>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', justifyContent: 'center' }}>
-            {['Photoshop', 'Illustrator', 'Figma', 'React', 'UI/UX', 'Branding'].map(skill => (
-              <span key={skill} style={{ padding: '0.5rem 1.5rem', background: 'rgba(212, 255, 0, 0.1)', border: '1px solid var(--accent-color)', borderRadius: '20px', color: 'var(--accent-color)' }}>
-                {skill}
-              </span>
-            ))}
-          </div>
-        </section>
+        <Skills />
 
         <section id="projects" style={{ minHeight: '100vh', padding: '100px 20px', textAlign: 'center' }}>
           <h2 className="blink-hover" style={{ fontSize: '3rem', marginBottom: '2rem' }}>Projects</h2>
