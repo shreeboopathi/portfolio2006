@@ -100,6 +100,22 @@ a {
   cursor: default;
 }
 
+.project-card:hover {
+  transform: translateY(-10px);
+  border-color: var(--accent-color) !important;
+  box-shadow: 0 10px 30px rgba(212, 255, 0, 0.1);
+}
+
+.project-btn:hover {
+  transform: scale(1.02);
+  filter: brightness(1.1);
+  box-shadow: 0 0 20px rgba(212, 255, 0, 0.4);
+}
+
+.project-btn:active {
+  transform: scale(0.98);
+}
+
 ::-webkit-scrollbar {
   width: 8px;
 }
