@@ -36,22 +36,24 @@ const Hero = () => {
             Hello I'M
           </motion.h3>
           <motion.h1
-            className={`name blink-hover ${isGreetingDone && !isNameDone ? 'typing-cursor' : ''}`}
+            className={`name ${isGreetingDone && !isNameDone ? 'typing-cursor' : ''}`}
             initial={{ width: 0 }}
             animate={isGreetingDone ? { width: "fit-content" } : { width: 0 }}
             onAnimationComplete={() => setIsNameDone(true)}
             transition={{ duration: 1.5, ease: "easeInOut" }}
-            style={{ overflow: "hidden", whiteSpace: "nowrap" }}
+            style={{ overflow: "hidden", whiteSpace: "nowrap", display: 'flex' }}
           >
-            Shree
+            {"Shree".split("").map((letter, i) => (
+              <span key={i} className="neon-text">{letter}</span>
+            ))}
           </motion.h1>
           <motion.h2
-            className="title blink-hover"
+            className="title"
             initial={{ opacity: 0 }}
             animate={isNameDone ? { opacity: 1 } : { opacity: 0 }}
             transition={{ duration: 1 }}
           >
-            A Creative <span className="highlight">Graphic Designer</span>
+            A Creative <span className="highlight neon-text">Graphic Designer</span>
           </motion.h2>
         </motion.div>
 
@@ -112,7 +114,7 @@ const Hero = () => {
 
       <style jsx>{`
         .hero-section {
-          min-height: 100vh;
+          height: 100vh;
           display: flex;
           align-items: center;
           justify-content: center;

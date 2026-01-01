@@ -36,7 +36,7 @@ body {
   min-width: 320px;
   min-height: 100vh;
   background-color: var(--bg-dark);
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
 #root {
@@ -100,16 +100,72 @@ a {
   cursor: default;
 }
 
-.project-card:hover {
-  transform: translateY(-10px);
-  border-color: var(--accent-color) !important;
-  box-shadow: 0 10px 30px rgba(212, 255, 0, 0.1);
+.neon-text {
+  transition: all 0.3s ease;
+  cursor: default;
 }
 
-.project-btn:hover {
-  transform: scale(1.02);
-  filter: brightness(1.1);
-  box-shadow: 0 0 20px rgba(212, 255, 0, 0.4);
+.neon-text:hover {
+  color: var(--accent-color);
+  text-shadow:
+    0 0 5px var(--accent-color),
+    0 0 10px var(--accent-color),
+    0 0 20px var(--accent-color),
+    0 0 40px var(--accent-color);
+  transform: scale(1.1);
+  z-index: 10;
+}
+
+@keyframes neon-card-blink {
+
+  0%,
+  100% {
+    box-shadow: 0 0 10px rgba(212, 255, 0, 0.1), inset 0 0 5px rgba(212, 255, 0, 0.05);
+    border-color: rgba(212, 255, 0, 0.2);
+    transform: translateY(-5px) scale(1.02);
+  }
+
+  50% {
+    box-shadow: 0 0 25px rgba(212, 255, 0, 0.6), inset 0 0 15px rgba(212, 255, 0, 0.3);
+    border-color: rgba(212, 255, 0, 1);
+    transform: translateY(-8px) scale(1.05);
+  }
+}
+
+.neon-block-hover:hover {
+  animation: neon-card-blink 0.8s ease-in-out infinite;
+  background: rgba(212, 255, 0, 0.05) !important;
+  z-index: 2;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-15px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.floating-card {
+  animation: float 4s ease-in-out infinite;
+}
+
+.floating-card:nth-child(even) {
+  animation-delay: -2s;
+}
+
+.project-card:hover {
+  animation-play-state: paused;
+  transform: scale(1.05) translateY(-20px) !important;
+  border-color: var(--accent-color) !important;
+  box-shadow: 0 20px 40px rgba(212, 255, 0, 0.2);
+  z-index: 10;
 }
 
 .project-btn:active {

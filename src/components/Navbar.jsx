@@ -2,33 +2,46 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Home, User, Code2, Briefcase, Mail } from 'lucide-react';
 
-const Navbar = () => {
-    const navItems = [
-        { id: 'home', label: 'Home', icon: <Home size={20} /> },
-        { id: 'about', label: 'About Me', icon: <User size={20} /> },
-        { id: 'skills', label: 'Skills', icon: <Code2 size={20} /> },
-        { id: 'projects', label: 'Projects', icon: <Briefcase size={20} /> },
-        { id: 'contact', label: 'Contact Me', icon: <Mail size={20} /> },
-    ];
+const Navbar = ({ onNavClick }) => {
+  const navItems = [
+    { id: 'home', label: 'Home', icon: <Home size={20} /> },
+    { id: 'about', label: 'About Me', icon: <User size={20} /> },
+    { id: 'skills', label: 'Skills', icon: <Code2 size={20} /> },
+    { id: 'projects', label: 'Projects', icon: <Briefcase size={20} /> },
+    { id: 'contact', label: 'Contact Me', icon: <Mail size={20} /> },
+  ];
 
-    return (
-        <nav className="bottom-nav">
-            <div className="nav-container">
-                {navItems.map((item) => (
-                    <motion.a
-                        key={item.id}
-                        href={`#${item.id}`}
-                        className="nav-item"
-                        whileHover={{ scale: 1.1, y: -5 }}
-                        whileTap={{ scale: 0.95 }}
-                    >
-                        <span className="nav-icon">{item.icon}</span>
-                        <span className="nav-label">{item.label}</span>
-                    </motion.a>
-                ))}
-            </div>
+  const handleClick = (e, id) => {
+    e.preventDefault();
+    if (onNavClick) {
+      onNavClick(id);
+    } else {
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  };
 
-            <style jsx>{`
+  return (
+    <nav className="bottom-nav">
+      <div className="nav-container">
+        {navItems.map((item) => (
+          <motion.a
+            key={item.id}
+            href={`#${item.id}`}
+            onClick={(e) => handleClick(e, item.id)}
+            className="nav-item"
+            whileHover={{ scale: 1.1, y: -5 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <span className="nav-icon">{item.icon}</span>
+            <span className="nav-label">{item.label}</span>
+          </motion.a>
+        ))}
+      </div>
+
+      <style jsx>{`
         .bottom-nav {
           position: fixed;
           bottom: 2rem;
@@ -90,8 +103,8 @@ const Navbar = () => {
           }
         }
       `}</style>
-        </nav>
-    );
+    </nav>
+  );
 };
 
 export default Navbar;

@@ -1,48 +1,91 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 
 const About = () => {
-    const text = "I am a Computer Science student with a strong interest in software development and problem-solving. I enjoy learning new technologies and applying my knowledge to real-world applications. My academic background has helped me build a solid foundation in programming, operating systems, databases, and computer networks. I am eager to grow as a developer and contribute to meaningful projects.";
+  const text = "I am a Computer Science student with a strong interest in software development and problem-solving. I enjoy learning new technologies and applying my knowledge to real-world applications. My academic background has helped me build a solid foundation in programming, operating systems, databases, and computer networks. I am eager to grow as a developer and contribute to meaningful projects.";
 
-    const [displayedText, setDisplayedText] = useState("");
-    const [isDone, setIsDone] = useState(false);
-    const ref = useRef(null);
-    const isInView = useInView(ref, { once: true, amount: 0.5 });
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: false, amount: 0.3 });
 
-    useEffect(() => {
-        if (isInView) {
-            let i = 0;
-            const interval = setInterval(() => {
-                setDisplayedText(text.slice(0, i));
-                i++;
-                if (i > text.length) {
-                    clearInterval(interval);
-                    setIsDone(true);
-                }
-            }, 30); // Speed of typing
-            return () => clearInterval(interval);
-        }
-    }, [isInView]);
+  // Variants for the blur-in effect
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.05,
+        delayChildren: 0.2
+      }
+    }
+  };
 
-    return (
-        <section id="about" ref={ref} className="about-section">
-            <h2 className="blink-hover section-title">About Me</h2>
-            <div className="about-content">
-                <p className={`typing-text ${!isDone && isInView ? 'typing-cursor' : ''}`}>
-                    {displayedText}
-                </p>
-            </div>
+  const itemVariants = {
+    hidden: {
+      opacity: 0,
+      scale: 0,
+      filter: "blur(10px)",
+    },
+    visible: {
+      opacity: 1,
+      scale: [0, 1.3, 0.9, 1.1, 1],
+      filter: "blur(0px)",
+      transition: {
+        duration: 0.8,
+        times: [0, 0.4, 0.6, 0.8, 1],
+        ease: "easeOut"
+      }
+    }
+  };
 
-            <style jsx>{`
+  return (
+    <section id="about" ref={ref} className="about-section">
+      <motion.h2
+        className="section-title"
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
+        transition={{ duration: 0.5 }}
+        style={{ display: 'flex', gap: '20px' }}
+      >
+        {"About Me".split(" ").map((word, i) => (
+          <span key={i} style={{ display: 'flex' }}>
+            {word.split("").map((letter, j) => (
+              <span key={j} className="neon-text">{letter}</span>
+            ))}
+          </span>
+        ))}
+      </motion.h2>
+
+      <motion.div
+        className="about-content"
+        variants={containerVariants}
+        initial="hidden"
+        animate={isInView ? "visible" : "hidden"}
+      >
+        <p className="blur-text">
+          {text.split(" ").map((word, i) => (
+            <motion.span
+              key={i}
+              variants={itemVariants}
+              className="neon-text"
+              style={{ display: 'inline-block', marginRight: '0.3em' }}
+            >
+              {word}
+            </motion.span>
+          ))}
+        </p>
+      </motion.div>
+
+      <style jsx>{`
         .about-section {
-          min-height: 100vh;
+          height: 100vh;
           padding: 100px 2rem;
           display: flex;
           flex-direction: column;
           align-items: center;
           justify-content: center;
           text-align: center;
-          background: var(--bg-dark);
+          background: transparent;
+          overflow: hidden;
         }
 
         .section-title {
@@ -56,25 +99,24 @@ const About = () => {
           margin: 0 auto;
         }
 
-        .typing-text {
+        .blur-text {
           font-size: 1.25rem;
           line-height: 1.8;
           color: var(--text-gray);
           min-height: 150px;
-          display: inline;
         }
 
         @media (max-width: 768px) {
           .section-title {
             font-size: 2.5rem;
           }
-          .typing-text {
+          .blur-text {
             font-size: 1.1rem;
           }
         }
       `}</style>
-        </section>
-    );
+    </section>
+  );
 };
 
 export default About;
